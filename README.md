@@ -35,7 +35,7 @@ pillar_roots:
     - /srv/salt/openstack/pillar
 ```
 
-2. Point Salt to the git repository: `ln -sf ~/git/juno-saltstack /srv/salt/openstack`
+2. Point Salt to the git repository: `ln -sf ~/git/kilo-saltstack /srv/salt/openstack`
 3. Restart the Salt Master: `systemctl restart salt-master.service`
 
 ### Update Salt Minions
@@ -46,9 +46,9 @@ From the Salt master:
 2. Set the grains for each machine
 
  ```bash
-salt 'controller*' grains.setvals "{'juno-saltstack':{'role':'controller'}}"
-salt 'compute*' grains.setvals "{'juno-saltstack':{'role':'compute'}}"
-salt 'network*' grains.setvals "{'juno-saltstack':{'role':'network'}}"
+salt 'controller*' grains.setvals "{'kilo-saltstack':{'role':'controller'}}"
+salt 'compute*' grains.setvals "{'kilo-saltstack':{'role':'compute'}}"
+salt 'network*' grains.setvals "{'kilo-saltstack':{'role':'network'}}"
 ```
 
 3. Refresh and sync the minions:
