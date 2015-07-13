@@ -5,5 +5,7 @@ kilo-saltstack-yumrepo:
     - baseurl: {{ salt['pillar.get']('openstack:repo:baseurl') }}
     - gpgcheck: 0
     - enabled: True
+  cmd.run:
+    - name: yum -y clean all
 
   

@@ -36,10 +36,6 @@ auth_setup:
         export TROVE_PASS={{ salt['pillar.get']('openstack:auth:TROVE_PASS') }}
         export SWIFT_PASS={{ salt['pillar.get']('openstack:auth:SWIFT_PASS') }}
 
-        export METADATA_SECRET={{ salt['pillar.get']('openstack:auth:METADATA_SECRET') }}
-        export ADMIN_TOKEN={{ salt['pillar.get']('openstack:auth:ADMIN_TOKEN') }}
-
-
 admin_setup:
   file.managed:
     - name: /home/{{ salt['pillar.get']('openstack:user') }}/kilo-saltstack/admin-openrc.sh
@@ -55,6 +51,7 @@ admin_setup:
         export OS_USERNAME=admin
         export OS_PASSWORD=$ADMIN_PASS
         export OS_AUTH_URL=http://{{ controller }}:35357/v3
+        export OS_IMAGE_API_VERSION=2
 
 demo_setup:
   file.managed:
@@ -70,5 +67,6 @@ demo_setup:
         export OS_USERNAME=demo
         export OS_PASSWORD=$DEMO_PASS
         export OS_AUTH_URL=http://{{ controller }}:5000/v3
+        export OS_IMAGE_API_VERSION=2
 
 

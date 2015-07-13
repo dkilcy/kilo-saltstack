@@ -6,8 +6,12 @@ openstack:
     - auth
 
   'G@kilo-saltstack:role:controller':
-    - auth 
     - mysql
     - rabbitmq
     - keystone
+    - glance
+    - nova.controller
 
+  'G@kilo-saltstack:role:compute':
+    - nova.compute
+ 

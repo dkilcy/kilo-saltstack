@@ -15,16 +15,16 @@ openstack:
 
   controller:
     host: controller1
-    mgmt_intf: bond0
+    mgmt_intf: 'ip4_interfaces:team0:0'
    
   network:
     host: network1
-    mgmt_intf: bond0
-    pub_intf: enp5s0
+    mgmt_intf: 'ip4_interfaces:team0:0'
+    pub_intf: 'ip4_interfaces:enp4s0:0'
 
   compute:
-    mgmt_intf: bond0
-    vm_intf: bond1
+    mgmt_intf: 'ip4_interfaces:team0:0'
+    vm_intf: 'ip4_interfaces:team1:0'
 
   auth:
     ADMIN_PASS: 94bcee677185fee9c0bf
