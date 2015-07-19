@@ -1,16 +1,18 @@
 ### Salt tools for OpenStack Kilo
 
-Install OpenStack Kilo in a 3+ node architecture with neutron networking on CentOS 7.
+Install OpenStack Kilo in a 3+ node architecture with neutron networking on CentOS 7 using SaltStack.
+
+#### Introduction
 
 ![Node Deployment](notes/node-deployment.png "Node Deployment")
 
-Contents:  
+##### Repository Contents
 
 - states: SaltStack state files  
 - pillar: SaltStack pillar data  
 - notes : Documentation and sample configuration files  
 
-##### Prerequesites
+#### Prerequesites
 
 - Salt Master is installed on the utility (workstation) node.
 - Salt Minion is installed on all OpenStack nodes. 
@@ -18,6 +20,10 @@ Contents:
 - NTP time service is running and all times are in sync
 
 Instruction on how to [Setup Salt Master and Minions](https://github.com/dkilcy/saltstack-base/blob/master/notes/setup-salt.md)
+
+Related repositories: 
+- [Salt Tools for bare-metal provisioning](https://github.com/dkilcy/saltstack-base)
+
 
 ### Update Salt Master
 
@@ -60,5 +66,57 @@ salt '*' saltutil.refresh_pillar
 salt '*' saltutil.sync_all
 ```
 
-##### Related projects 
-- [Salt Tools for bare-metal provisioning](https://github.com/dkilcy/saltstack-base)
+### OpenStack Kilo Setup
+
+1. Run highstate against the controller nodes.
+
+Perform these steps **on the Salt master**
+```
+# salt -G 'kilo-saltstack:role:controller' test.ping
+# salt -G 'kilo-saltstack:role:controller' state.highstate --state-output=mixed
+```
+2. Verify the controller services setup.
+
+Perform these steps **on the controller node.**
+```
+# cd /home/devops/kilo-openstack
+# source auth-openrc.sh
+# source admin-openrc.sh
+
+# mkdir /tmp/images
+# wget -P /tmp/images http://download.cirros-cloud.net/0.3.4/cirros-0.3.4-x86_64-disk.img
+# glance image-create --name "cirros-0.3.4-x86_64" --file /tmp/images/cirros-0.3.4-x86_64-disk.img \
+  --disk-format qcow2 --container-format bare --visibility public --progress
+# glance image-list
+
+# nova service-list
+# nova endpoints
+# nova image-list
+
+# neutron ext-list
+# neutron agent-list
+```
+3. Run highstate against the network nodes.
+
+Perform these steps **on the Salt master.**
+```
+# salt -G 'kilo-saltstack:role:network' test.ping
+# salt -G 'kilo-saltstack:role:network' state.highstate --state-output=mixed
+```
+4.  Configure the Open vSwtich (OVS) service on the network nodes.
+
+Perform these steps on **all the network nodes.**
+```
+
+```
+5. Verify the network services setup.
+
+Perform these steps **on the controller node.***
+```
+
+```
+
+
+
+##### References
+- [OpenStack Installation Guide for Red Hat Enterprise Linux 7, CentOS 7, and Fedora 21 ](http://docs.openstack.org/kilo/install-guide/install/yum/content/)
