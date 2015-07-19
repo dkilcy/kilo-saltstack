@@ -29,7 +29,7 @@ Related repositories:
 
 1. Create /etc/salt/master.d/99-salt-envs.conf
 
- ```yaml
+```yaml
 file_roots:
   base:
     - /srv/salt/base/states
@@ -71,14 +71,14 @@ salt '*' saltutil.sync_all
 1. Run highstate against the controller nodes.
 
 Perform these steps **on the Salt master**
-```
+ ```
 # salt -G 'kilo-saltstack:role:controller' test.ping
 # salt -G 'kilo-saltstack:role:controller' state.highstate --state-output=mixed
 ```
 2. Verify the controller services setup.
 
 Perform these steps **on the controller node.**
-```
+ ```
 # cd /home/devops/kilo-openstack
 # source auth-openrc.sh
 # source admin-openrc.sh
@@ -95,18 +95,18 @@ Perform these steps **on the controller node.**
 
 # neutron ext-list
 # neutron agent-list
-```
+ ```
 3. Run highstate against the network nodes.
 
 Perform these steps **on the Salt master.**
-```
+ ```
 # salt -G 'kilo-saltstack:role:network' test.ping
 # salt -G 'kilo-saltstack:role:network' state.highstate --state-output=mixed
 ```
 4.  Configure the Open vSwtich (OVS) service on the network nodes.
 
 Perform these steps on **all the network nodes.**
-```
+ ```
 
 ```
 5. Verify the network services setup.
