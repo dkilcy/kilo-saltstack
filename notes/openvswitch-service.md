@@ -207,4 +207,48 @@ Hint: Some lines were ellipsized, use -l to show in full.
             Interface "enp4s0"
     ovs_version: "2.3.1"
 [root@network1 ~]$ 
+[root@network1 ~]$ ip a
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN 
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host 
+       valid_lft forever preferred_lft forever
+2: enp4s0: <BROADCAST,MULTICAST> mtu 1500 qdisc noop master ovs-system state DOWN qlen 1000
+    link/ether 68:05:ca:24:7b:02 brd ff:ff:ff:ff:ff:ff
+3: enp0s20f0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 9000 qdisc mq master team0 state UP qlen 1000
+    link/ether 0c:c4:7a:31:24:08 brd ff:ff:ff:ff:ff:ff
+    inet6 fe80::ec4:7aff:fe31:2408/64 scope link 
+       valid_lft forever preferred_lft forever
+4: enp0s20f1: <NO-CARRIER,BROADCAST,MULTICAST,UP> mtu 9000 qdisc mq master team0 state DOWN qlen 1000
+    link/ether 0c:c4:7a:31:24:08 brd ff:ff:ff:ff:ff:ff
+5: enp0s20f2: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 9000 qdisc mq master team1 state UP qlen 1000
+    link/ether 0c:c4:7a:31:24:0a brd ff:ff:ff:ff:ff:ff
+    inet6 fe80::ec4:7aff:fe31:240a/64 scope link 
+       valid_lft forever preferred_lft forever
+6: enp0s20f3: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 9000 qdisc mq master team1 state UP qlen 1000
+    link/ether 0c:c4:7a:31:24:0a brd ff:ff:ff:ff:ff:ff
+    inet6 fe80::ec4:7aff:fe31:240a/64 scope link 
+       valid_lft forever preferred_lft forever
+7: team0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 9000 qdisc noqueue state UP 
+    link/ether 0c:c4:7a:31:24:08 brd ff:ff:ff:ff:ff:ff
+    inet 10.0.0.21/24 brd 10.0.0.255 scope global team0
+       valid_lft forever preferred_lft forever
+    inet6 fe80::ec4:7aff:fe31:2408/64 scope link 
+       valid_lft forever preferred_lft forever
+8: team1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 9000 qdisc noqueue state UP 
+    link/ether 0c:c4:7a:31:24:0a brd ff:ff:ff:ff:ff:ff
+    inet 10.0.1.21/24 brd 10.0.1.255 scope global team1
+       valid_lft forever preferred_lft forever
+    inet6 fe80::ec4:7aff:fe31:240a/64 scope link tentative dadfailed 
+       valid_lft forever preferred_lft forever
+9: ovs-system: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN 
+    link/ether 02:49:42:2b:3d:21 brd ff:ff:ff:ff:ff:ff
+10: br-ex: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN 
+    link/ether 68:05:ca:24:7b:02 brd ff:ff:ff:ff:ff:ff
+11: br-int: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN 
+    link/ether 9e:57:3a:55:cb:43 brd ff:ff:ff:ff:ff:ff
+12: br-tun: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN 
+    link/ether 0a:e6:37:c5:fa:4c brd ff:ff:ff:ff:ff:ff
+[root@network1 ~]$ 
 ```
