@@ -105,17 +105,62 @@ Perform these steps **on the Salt master.**
 ```
 4.  Configure the Open vSwtich (OVS) service on the network nodes.
 
-Perform these steps on **all the network nodes.**
- ```
+Perform these steps on **the network nodes.**
 
-```
-5. Verify the network services setup.
+5. Create the initial networks.
 
 Perform these steps **on the controller node.***
+
+a. Source the admin credentials to gain access to admin-only CLI commands:
+b. Create the network 
+ ```
+[root@controller1 kilo-saltstack]$ neutron net-create ext-net --router:external \
+>   --provider:physical_network external --provider:network_type flat
+Created a new network:
++---------------------------+--------------------------------------+
+| Field                     | Value                                |
++---------------------------+--------------------------------------+
+| admin_state_up            | True                                 |
+| id                        | b6ce1d3a-107b-47ef-800b-8bafe565bc1e |
+| mtu                       | 0                                    |
+| name                      | ext-net                              |
+| provider:network_type     | flat                                 |
+| provider:physical_network | external                             |
+| provider:segmentation_id  |                                      |
+| router:external           | True                                 |
+| shared                    | False                                |
+| status                    | ACTIVE                               |
+| subnets                   |                                      |
+| tenant_id                 | a1dea1c807944999b7fd4003f021502f     |
++---------------------------+--------------------------------------+
 ```
 
+Create the subnet
 ```
-
+[root@controller1 kilo-saltstack]$ neutron subnet-create ext-net 192.168.1.0/24 --name ext-subnet \
+--allocation-pool start=192.168.1.200,end=192.168.1.224 \
+--disable-dhcp --gateway 192.168.1.1
+Created a new subnet:
++-------------------+----------------------------------------------------+
+| Field             | Value                                              |
++-------------------+----------------------------------------------------+
+| allocation_pools  | {"start": "192.168.1.200", "end": "192.168.1.224"} |
+| cidr              | 192.168.1.0/24                                     |
+| dns_nameservers   |                                                    |
+| enable_dhcp       | False                                              |
+| gateway_ip        | 192.168.1.1                                        |
+| host_routes       |                                                    |
+| id                | 7d953171-465b-433e-b627-4b4d390dc77b               |
+| ip_version        | 4                                                  |
+| ipv6_address_mode |                                                    |
+| ipv6_ra_mode      |                                                    |
+| name              | ext-subnet                                         |
+| network_id        | b6ce1d3a-107b-47ef-800b-8bafe565bc1e               |
+| subnetpool_id     |                                                    |
+| tenant_id         | a1dea1c807944999b7fd4003f021502f                   |
++-------------------+----------------------------------------------------+
+[root@controller1 kilo-saltstack]$ 
+```
 
 
 ##### References
