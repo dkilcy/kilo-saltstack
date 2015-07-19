@@ -11,6 +11,10 @@ openstack:
     - keystone
     - glance
     - nova.controller
+    - neutron.controller
+
+  'G@kilo-saltstack:role:network':
+    - neutron.network
 
   'G@kilo-saltstack:role:compute':
     - nova.compute

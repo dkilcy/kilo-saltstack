@@ -1,8 +1,15 @@
+#
+#
+#
+
 {% from "mysql/map.jinja" import mysql with context %}
 
 {% set nova_dbpass = salt['pillar.get']('openstack:auth:NOVA_DBPASS') %}
 {% set mysql_host = salt['pillar.get']('openstack:controller:host') %}
 {% set mysql_root_password = salt['pillar.get']('mysql:root_pass') %}
+{% set controller = salt['pillar.get']('openstack:controller:host') %}
+{% set ipintf = salt['pillar.get']('openstack:controller:mgmt_intf') %}
+{% set ip = salt['grains.get'](ipintf) %}
 
 #
 # Create the nova database
@@ -75,8 +82,6 @@ nova_grant_all:
 # Create the nova user:
 #
 
-{% set controller = salt['pillar.get']('openstack:controller:host') %}
-
 create-nova-user:
   cmd.run:
     - name: openstack user create --password {{ salt['pillar.get']('openstack:auth:NOVA_PASS') }} nova
@@ -142,9 +147,6 @@ nova-service-endpoint:
 #
 # Install the packages:
 #
-
-{% set ipintf = salt['pillar.get']('openstack:controller:mgmt-intf') %}
-{% set ip = salt['grains.get'](ipintf) %}
 
 nova-pkgs:
   pkg.installed:

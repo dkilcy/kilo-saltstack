@@ -20,6 +20,7 @@ openstack:
   network:
     host: network1
     mgmt_intf: 'ip4_interfaces:team0:0'
+    vm_intf: 'ip4_interfaces:team1:0'
     pub_intf: 'ip4_interfaces:enp4s0:0'
 
   compute:
@@ -47,6 +48,7 @@ openstack:
     SWIFT_PASS: 0d882fe21dfe142ea3df
     TROVE_DBPASS: 8d2f0c22de016fe093f4
     TROVE_PASS: 18c357877c7120e6cca4
+    METADATA_SECRET: 0cb2bb516881d71eff88
 
   keystone:
     admin_token: 5ef51bc4d3bf3e600f78
