@@ -1,7 +1,5 @@
 ### Salt tools for OpenStack Kilo
 
-Dependencies: [dkilcy/saltstack-base](https://github.com/dkilcy/saltstack-base)
-
 Install OpenStack Kilo in a 3+ node architecture with neutron networking on CentOS 7.
 
 ![Node Deployment](notes/node-deployment.png "Node Deployment")
@@ -16,6 +14,10 @@ Contents:
 
 - Salt Master is installed on the utility (workstation) node.
 - Salt Minion is installed on all OpenStack nodes. 
+- SELinux is disabled on all nodes.
+- NTP time service is running and all times are in sync
+
+Instruction on how to [Setup Salt Master and Minions](https://github.com/dkilcy/saltstack-base/blob/master/notes/setup-salt.md)
 
 ### Update Salt Master
 
@@ -57,3 +59,6 @@ salt 'network*' grains.setvals "{'kilo-saltstack':{'role':'network'}}"
 salt '*' saltutil.refresh_pillar
 salt '*' saltutil.sync_all
 ```
+
+##### Related projects 
+- [Salt Tools for bare-metal provisioning](https://github.com/dkilcy/saltstack-base)
