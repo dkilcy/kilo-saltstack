@@ -190,6 +190,10 @@ network-/etc/neutron/metadata_agent.ini:
 # 2. Add the external bridge:
 # 3. Add a port to the external bridge that connects to the physical external network interface:
 
+openvswitch-service:
+  service.running:
+    - name: openvswitch
+    - enable: True
 
 #
 # To finalize the installation
@@ -207,16 +211,9 @@ network-/etc/neutron/plugin.ini:
     - name: /etc/neutron/plugin.ini
     - target: /etc/neutron/plugins/ml2/ml2_conf.ini
            
-neutron_network_openvswitch_agent:
-  file.copy:
-    - name: /usr/lib/systemd/system/neutron-openvswitch-agent.service.orig
-    - source: /usr/lib/systemd/system/neutron-openvswitch-agent.service
-    - preserve: True
-
 neutron_network_neutron_openvswitch_agent:
   file.replace:
     - name: /usr/lib/systemd/system/neutron-openvswitch-agent.service
-#    - path: /usr/lib/systemd/system/neutron-openvswitch-agent.service
     - pattern: plugins/openvswitch/ovs_neutron_plugin.ini
     - repl: plugin.ini
 
@@ -243,7 +240,5 @@ compute_metadata_agent_service_start:
   service.running:
     - name: neutron-metadata-agent
     - enable: True
-
-
 
 

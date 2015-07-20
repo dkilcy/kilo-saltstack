@@ -52,7 +52,7 @@ admin_setup:
         export OS_PASSWORD=$ADMIN_PASS
         export OS_AUTH_URL=http://{{ controller }}:35357/v3
         export OS_IMAGE_API_VERSION=2
-        export OS_REGION_NAME: RegionOne
+        export OS_REGION_NAME=RegionOne
 
 demo_setup:
   file.managed:
@@ -69,6 +69,6 @@ demo_setup:
         export OS_PASSWORD=$DEMO_PASS
         export OS_AUTH_URL=http://{{ controller }}:5000/v3
         export OS_IMAGE_API_VERSION=2
-        export OS_REGION_NAME: RegionOne
+        export OS_REGION_NAME=RegionOne
 
 
