@@ -79,7 +79,7 @@ salt -G 'kilo-saltstack:role:controller' state.highstate --state-output=mixed
 
 Perform these steps **on the controller node.**
  ```
-cd /home/devops/kilo-openstack
+cd /home/devops/kilo-saltstack
 source auth-openrc.sh
 source admin-openrc.sh
 
