@@ -1,5 +1,7 @@
 ### Salt tools for OpenStack Kilo
 
+Current Status: Bugs
+
 Install OpenStack Kilo in a 3+ node architecture with neutron networking on CentOS 7 using SaltStack.
 
 #### Introduction
