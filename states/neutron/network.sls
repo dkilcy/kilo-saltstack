@@ -224,25 +224,25 @@ neutron_network_neutron_openvswitch_agent:
 # 2. Start the Networking services and configure them to start when the system boots:
 #
 
-#compute_openvswitch_agent_service_start:
-#  service.running:
-#    - name: neutron-openvswitch-agent
-#    - enable: True
+compute_openvswitch_agent_service_start:
+  service.running:
+    - name: neutron-openvswitch-agent
+    - enable: True
 
-#compute_l3_agent_service_start:
-#  service.running:
-#    - name: neutron-l3-agent
-#    - enable: True
+compute_l3_agent_service_start:
+  service.running:
+    - name: neutron-l3-agent
+    - enable: True
 
-#compute_dhcp_agent_service_start:
-#  service.running:
-#    - name: neutron-dhcp-agent
-#    - enable: True
+compute_dhcp_agent_service_start:
+  service.running:
+    - name: neutron-dhcp-agent
+    - enable: True
 
-#compute_metadata_agent_service_start:
-#  service.running:
-#    - name: neutron-metadata-agent
-#    - enable: True
+compute_metadata_agent_service_start:
+  service.running:
+    - name: neutron-metadata-agent
+    - enable: True
 
 
 
