@@ -82,17 +82,20 @@ Perform these steps **on the controller node.**
 cd /home/devops/kilo-saltstack
 source auth-openrc.sh
 source admin-openrc.sh
-
+```
+```
 mkdir /tmp/images
 wget -P /tmp/images http://download.cirros-cloud.net/0.3.4/cirros-0.3.4-x86_64-disk.img
 glance image-create --name "cirros-0.3.4-x86_64" --file /tmp/images/cirros-0.3.4-x86_64-disk.img \
   --disk-format qcow2 --container-format bare --visibility public --progress
 glance image-list
-
+```
+```
 nova service-list
 nova endpoints
 nova image-list
-
+```
+```
 neutron ext-list
 neutron agent-list
  ```
@@ -114,54 +117,36 @@ Perform these steps **on the controller node.***
 a. Source the admin credentials to gain access to admin-only CLI commands:
 b. Create the network 
  ```
-[root@controller1 kilo-saltstack]$ neutron net-create ext-net --router:external \
->   --provider:physical_network external --provider:network_type flat
-Created a new network:
-+---------------------------+--------------------------------------+
-| Field                     | Value                                |
-+---------------------------+--------------------------------------+
-| admin_state_up            | True                                 |
-| id                        | b6ce1d3a-107b-47ef-800b-8bafe565bc1e |
-| mtu                       | 0                                    |
-| name                      | ext-net                              |
-| provider:network_type     | flat                                 |
-| provider:physical_network | external                             |
-| provider:segmentation_id  |                                      |
-| router:external           | True                                 |
-| shared                    | False                                |
-| status                    | ACTIVE                               |
-| subnets                   |                                      |
-| tenant_id                 | a1dea1c807944999b7fd4003f021502f     |
-+---------------------------+--------------------------------------+
+neutron net-create ext-net --router:external \
+ --provider:physical_network external --provider:network_type flat
 ```
 
 Create the subnet
 ```
-[root@controller1 kilo-saltstack]$ neutron subnet-create ext-net 192.168.1.0/24 --name ext-subnet \
+neutron subnet-create ext-net 192.168.1.0/24 --name ext-subnet \
 --allocation-pool start=192.168.1.200,end=192.168.1.224 \
 --disable-dhcp --gateway 192.168.1.1
-Created a new subnet:
-+-------------------+----------------------------------------------------+
-| Field             | Value                                              |
-+-------------------+----------------------------------------------------+
-| allocation_pools  | {"start": "192.168.1.200", "end": "192.168.1.224"} |
-| cidr              | 192.168.1.0/24                                     |
-| dns_nameservers   |                                                    |
-| enable_dhcp       | False                                              |
-| gateway_ip        | 192.168.1.1                                        |
-| host_routes       |                                                    |
-| id                | 7d953171-465b-433e-b627-4b4d390dc77b               |
-| ip_version        | 4                                                  |
-| ipv6_address_mode |                                                    |
-| ipv6_ra_mode      |                                                    |
-| name              | ext-subnet                                         |
-| network_id        | b6ce1d3a-107b-47ef-800b-8bafe565bc1e               |
-| subnetpool_id     |                                                    |
-| tenant_id         | a1dea1c807944999b7fd4003f021502f                   |
-+-------------------+----------------------------------------------------+
-[root@controller1 kilo-saltstack]$ 
 ```
 
+6. Create the tenant network
+
+```
+source demo-openrc.sh
+```
+```
+neutron net-create demo-net
+neutron subnet-create demo-net 172.16.1.0/24 \
+--name demo-subnet --gateway 172.16.1.1
+neutron router-create demo-router
+neutron router-interface-add demo-router demo-subnet
+neutron router-gateway-set demo-router ext-net
+```
+
+7. From a host on the the external network, ping the tenant router gateway:
+
+```
+ping -c 4 192.168.1.200
+```
 
 ##### References
 - [OpenStack Installation Guide for Red Hat Enterprise Linux 7, CentOS 7, and Fedora 21 ](http://docs.openstack.org/kilo/install-guide/install/yum/content/)
